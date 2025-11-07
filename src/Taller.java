@@ -6,40 +6,32 @@ public class Taller {
     private Solucion solucion;
 
     public Solucion construirPiezas(List<Maquina> maquinasList, int totalPiezasAConstruir){
-        e = new Estado(0, 0, totalPiezasAConstruir, new LinkedList<>());
-        solucion = new Solucion(9999, 0, new LinkedList<>());
+        e = new Estado(0, 0, 0, new LinkedList<>());
+        solucion = new Solucion(Integer.MAX_VALUE, 0, new LinkedList<>());
         backtracking(e, maquinasList, totalPiezasAConstruir);
-        System.out.println("asd");
+        System.out.println(solucion.getCantMaquinasEncendidas());
+        // si no hay solcion devolver nulo.
         return solucion;
     }
 
     private void backtracking(Estado e, List<Maquina> maquinasList, int totalPiezas){
-        if(e.getIndice() >= maquinasList.size()){ // Ya generé todos los estados posibles.
-            if (e.getPiezasRestantesPorConstruir() == 0 && e.getCantMaquinasEncendidas() < solucion.getCantMaquinasEncendidas()) {//es solucion?
-                System.out.println("Encontre solucion!!");
-                System.out.println(e.getSecuenciaMaquinasPrendidas());
-                solucion.setCantMaquinasEncendidas(e.getCantMaquinasEncendidas());
-                solucion.setCantPiezasProducidas(totalPiezas);
-                //solucion.getSecuenciaMaquinasPrendidas().clear();
-                //solucion.setSecuenciaMaquinasPrendidas(e.getSecuenciaMaquinasPrendidas());
+        if(e.piezasCreadas == totalPiezas){
+            if (e.maquinasPrendidas < solucion.getCantMaquinasEncendidas()){
+                solucion.setCantMaquinasEncendidas(e.maquinasPrendidas);
+                //solucion.setSecuenciaMaquinasPrendidas(e.maquinasPrendidas);
             }
         }else{
-            int indice = e.getIndice();
-            Maquina m = maquinasList.get(indice);
-
-            // La enciendo
-            e.prender(m);
-            backtracking(e, maquinasList, totalPiezas);
-            e.apagar(m);
-
-            // No la enciendo, y avanzo a la siguiente.
-            e.setIndice(indice + 1);
-            backtracking(e, maquinasList, totalPiezas);
-            e.setIndice(indice);
+            // La poda
+            for (Maquina m : maquinasList) {
+                e.prender(m);
+                if (!poda(e, totalPiezas)){
+                    backtracking(e, maquinasList, totalPiezas);
+                }
+                e.apagar(m);
+            }
         }
     }
-
-    private boolean construiTodasLasPiezas(int totalPiezas) {
-        return totalPiezas <= 0;
+    private boolean poda(Estado e, int totalPiezas){
+        return e.piezasCreadas > totalPiezas;
     }
 }

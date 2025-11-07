@@ -33,7 +33,8 @@ public class Solucion {
     }
 
     public void setSecuenciaMaquinasPrendidas(List<Integer> secuenciaMaquinasPrendidas) {
-        this.secuenciaMaquinasPrendidas = secuenciaMaquinasPrendidas;
+
+        this.secuenciaMaquinasPrendidas = new LinkedList<>(secuenciaMaquinasPrendidas);
     }
 
     @Override
