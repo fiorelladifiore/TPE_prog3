@@ -1,62 +1,45 @@
-import java.util.List;
+import java.util.*;
 
 public class Taller {
 
-private Estado estadoMin;
+    private Estado e;
+    private Solucion solucion;
 
-private Estado e;
+    public Solucion construirPiezas(List<Maquina> maquinasList, int totalPiezasAConstruir){
+        e = new Estado(0, 0, totalPiezasAConstruir, new LinkedList<>());
+        solucion = new Solucion(9999, 0, new LinkedList<>());
+        backtracking(e, maquinasList, totalPiezasAConstruir);
+        System.out.println("asd");
+        return solucion;
+    }
 
-
-public Solucion construirPiezas(List<Maquina> maquinasList, int totalPiezas){
-    Solucion solu = new Solucion();
-    solu.setSecuenciaDeMaquina(estadoMin.secuenciaActual()); //seteamos todos los datos q lleva la solución
-    solu.setCantPiezasProducidas(estadoMin.cantPiezas);// tmb podria ser totalPiezas
-    solu.setCantEncendidas(estadoMin.cantEncendidas);
-    solu.setCosto(estadoMin.costoEstado);
-
-    e = new Estado();
-
-    this.backtracking(0, e, maquinasList, totalPiezas);
-    return solu;
-}
-
-
-private void backtracking(Estado e, List<Maquina> maquinasList, int totalPiezas){
-    if(e.getTotalPiezasActual() > totalPiezas){ //explore todo el arbol?
-        if (e.getTotalPiezasActuales().equals(totalPiezas)) {//es solucion?
-            if(e.cantEncendidasActual() < estadoMin.cantEncendidasActual()){
-                cantEncendidosMin = e.cantEncendidasActual();
-
+    private void backtracking(Estado e, List<Maquina> maquinasList, int totalPiezas){
+        if(e.getIndice() >= maquinasList.size()){ // Ya generé todos los estados posibles.
+            if (e.getPiezasRestantesPorConstruir() == 0 && e.getCantMaquinasEncendidas() < solucion.getCantMaquinasEncendidas()) {//es solucion?
+                System.out.println("Encontre solucion!!");
+                System.out.println(e.getSecuenciaMaquinasPrendidas());
+                solucion.setCantMaquinasEncendidas(e.getCantMaquinasEncendidas());
+                solucion.setCantPiezasProducidas(totalPiezas);
+                //solucion.getSecuenciaMaquinasPrendidas().clear();
+                //solucion.setSecuenciaMaquinasPrendidas(e.getSecuenciaMaquinasPrendidas());
             }
+        }else{
+            int indice = e.getIndice();
+            Maquina m = maquinasList.get(indice);
+
+            // La enciendo
+            e.prender(m);
+            backtracking(e, maquinasList, totalPiezas);
+            e.apagar(m);
+
+            // No la enciendo, y avanzo a la siguiente.
+            e.setIndice(indice + 1);
+            backtracking(e, maquinasList, totalPiezas);
+            e.setIndice(indice);
         }
-        return;
-    }else{
-        //recorrer
-        Maquina m = maquinasList.get(e.indice());
-        aplicar(maquinasList)// aumemtar el indice
-        this.backtracking(e, maquinasList, totalPiezas);
-
     }
 
-
-}
-
-// alternativa con indice
-private void backtrackingConIndice(int index, List<Maquina> maquinasList, int totalPiezas){
-    if(index == maquinasList.size()){
-        if(// chequeo de estados){
-        // seteo de estado minimo
-    }else{
-        Maquina aux = maquinasList.get(index);
-
-        e.aplicar(aux, totalPiezas);
-
-        backtrackingConIndice(index + 1, maquinasList, totalPiezas);
-
-        e.remove(aux);
+    private boolean construiTodasLasPiezas(int totalPiezas) {
+        return totalPiezas <= 0;
     }
-}
-
-
-
 }

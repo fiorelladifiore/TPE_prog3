@@ -1,13 +1,15 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    IO.println(String.format("Hello and welcome!"));
 
-    for (int i = 1; i <= 5; i++) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        IO.println("i = " + i);
-    }
+void main() {
+    List<Maquina> maquinas = new ArrayList<>();
+    maquinas.add(new Maquina(7, "M1"));
+    maquinas.add(new Maquina(3, "M2"));
+    maquinas.add(new Maquina(4, "M3"));
+    maquinas.add(new Maquina(1, "M4"));
+
+    int objetivo = 12;
+
+    Taller taller = new Taller();
+    Solucion sol = taller.construirPiezas(maquinas, objetivo);
+
+    System.out.println(sol.toString());
 }

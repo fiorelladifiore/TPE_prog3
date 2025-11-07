@@ -12,7 +12,6 @@ public class Maquina {
         return capacidad;
     }
 
-
     public String getNombre() {
         return nombre;
     }
