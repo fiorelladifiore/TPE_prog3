@@ -2,11 +2,11 @@ import java.util.*;
 
 public class Solucion {
 
-    private List<Integer> secuenciaMaquinasPrendidas;
+    private List<Maquina> secuenciaMaquinasPrendidas;
     private int cantPiezasProducidas;
     private int cantMaquinasEncendidas;
 
-    public Solucion(int cantMaquinasEncendidas, int cantPiezasProducidas, List<Integer> secuenciaMaquinasPrendidas) {
+    public Solucion(int cantMaquinasEncendidas, int cantPiezasProducidas, List<Maquina> secuenciaMaquinasPrendidas) {
         this.cantMaquinasEncendidas = cantMaquinasEncendidas;
         this.cantPiezasProducidas = cantPiezasProducidas;
         this.secuenciaMaquinasPrendidas = secuenciaMaquinasPrendidas;
@@ -28,11 +28,11 @@ public class Solucion {
         this.cantPiezasProducidas = cantPiezasProducidas;
     }
 
-    public List<Integer> getSecuenciaMaquinasPrendidas() {
-        return secuenciaMaquinasPrendidas;
+    public String getNombresMaquinasPrendidas() {
+        return secuenciaMaquinasPrendidas.toString();
     }
 
-    public void setSecuenciaMaquinasPrendidas(List<Integer> secuenciaMaquinasPrendidas) {
+    public void setSecuenciaMaquinasPrendidas(List<Maquina> secuenciaMaquinasPrendidas) {
 
         this.secuenciaMaquinasPrendidas = new LinkedList<>(secuenciaMaquinasPrendidas);
     }
@@ -41,7 +41,7 @@ public class Solucion {
     public String toString() {
         return "Solucion{" +
                 "cantMaquinasEncendidas=" + cantMaquinasEncendidas +
-                ", secuenciaMaquinasPrendidas=" + secuenciaMaquinasPrendidas +
+                ", secuenciaMaquinasPrendidas=" + getNombresMaquinasPrendidas()+
                 ", cantPiezasProducidas=" + cantPiezasProducidas +
                 '}';
     }

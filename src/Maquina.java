@@ -16,4 +16,9 @@ public class Maquina {
         return nombre;
     }
 
+    @Override
+    public String toString() {
+        return this.getNombre(); // Simplemente devuelve el nombre
+    }
+
 }
