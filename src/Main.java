@@ -6,6 +6,7 @@ void main() {
     maquinas.add(new Maquina(4, "M3"));
     maquinas.add(new Maquina(1, "M4"));
 
+
     int objetivo = 12;
 
     Taller taller = new Taller();

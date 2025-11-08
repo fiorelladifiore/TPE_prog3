@@ -20,4 +20,8 @@ public class Maquina implements Comparable<Maquina> {
     public int compareTo(Maquina other){ // agregue el comparable para hacer el sort x capacidad
         return this.capacidad - other.capacidad;
     }
+    public String toString() {
+        return this.getNombre(); // Simplemente devuelve el nombre
+    }
+
 }
