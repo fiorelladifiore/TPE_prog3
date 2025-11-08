@@ -2,14 +2,14 @@ import java.util.*;
 
 public class Solucion {
 
-    private List<Integer> secuenciaMaquinasPrendidas;
+    private List<String> secuenciaMaquinasPrendidas; // le cambie el tipo de dato a String para que muestre el attr nombre de la maquina
     private int cantPiezasProducidas;
     private int cantMaquinasEncendidas;
 
-    public Solucion(int cantMaquinasEncendidas, int cantPiezasProducidas, List<Integer> secuenciaMaquinasPrendidas) {
+    public Solucion(int cantMaquinasEncendidas, int cantPiezasProducidas, List<String> secuenciaMaquinasPrendidas) {
         this.cantMaquinasEncendidas = cantMaquinasEncendidas;
         this.cantPiezasProducidas = cantPiezasProducidas;
-        this.secuenciaMaquinasPrendidas = secuenciaMaquinasPrendidas;
+        this.secuenciaMaquinasPrendidas = new ArrayList<String>(secuenciaMaquinasPrendidas);
     }
 
     public int getCantMaquinasEncendidas() {
@@ -28,13 +28,18 @@ public class Solucion {
         this.cantPiezasProducidas = cantPiezasProducidas;
     }
 
-    public List<Integer> getSecuenciaMaquinasPrendidas() {
+    public List<String> getSecuenciaMaquinasPrendidas() {
         return secuenciaMaquinasPrendidas;
     }
 
-    public void setSecuenciaMaquinasPrendidas(List<Integer> secuenciaMaquinasPrendidas) {
+    public void setSecuenciaMaquinasPrendidas(List<String> secuenciaMaquinasPrendidas) {
+        this.secuenciaMaquinasPrendidas = new LinkedList<String>(secuenciaMaquinasPrendidas);
+    }
 
-        this.secuenciaMaquinasPrendidas = new LinkedList<>(secuenciaMaquinasPrendidas);
+    public void setSolucion(Estado e){ // en lugar de hacer uno por uno el set en el greedy, paso el estado final y seteo todo junto
+        this.secuenciaMaquinasPrendidas = new ArrayList<>(e.secuenciaMaquinasPrendidas);
+        this.cantPiezasProducidas = e.piezasCreadas;
+        this.cantMaquinasEncendidas = e.maquinasPrendidas;
     }
 
     @Override

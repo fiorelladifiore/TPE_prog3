@@ -1,4 +1,4 @@
-public class Maquina {
+public class Maquina implements Comparable<Maquina> {
 
     private int capacidad;
     private String nombre;
@@ -16,4 +16,8 @@ public class Maquina {
         return nombre;
     }
 
+    @Override
+    public int compareTo(Maquina other){ // agregue el comparable para hacer el sort x capacidad
+        return this.capacidad - other.capacidad;
+    }
 }

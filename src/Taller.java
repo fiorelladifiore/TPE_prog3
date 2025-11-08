@@ -6,7 +6,7 @@ public class Taller {
     private Solucion solucion;
 
     public Solucion construirPiezas(List<Maquina> maquinasList, int totalPiezasAConstruir){
-        e = new Estado(0, 0, 0, new LinkedList<>());
+        e = new Estado(0, 0, new LinkedList<>());
         solucion = new Solucion(Integer.MAX_VALUE, 0, new LinkedList<>());
         backtracking(e, maquinasList, totalPiezasAConstruir);
         System.out.println(solucion.getCantMaquinasEncendidas());
@@ -31,7 +31,36 @@ public class Taller {
             }
         }
     }
+    
     private boolean poda(Estado e, int totalPiezas){
         return e.piezasCreadas > totalPiezas;
+    }
+
+    /** GREEDY -------------------------------------------------------------------------------------------- */
+    public Solucion construirPiezasGreedy(List<Maquina> maquinasList, int totalPiezas){
+        Collections.sort(maquinasList);
+        
+        e = new Estado(0, 0, new ArrayList<>());
+        solucion = new Solucion(0, 0, new ArrayList<>());
+
+        if(!maquinasList.isEmpty() && totalPiezas > 0){
+            greedy(e, maquinasList, totalPiezas);
+        }
+
+        return solucion;
+    }
+
+    private void greedy(Estado e, List<Maquina> maquinasList, int totalPiezas){
+        for(Maquina m : maquinasList){
+            while(e.piezasCreadas < totalPiezas){
+                e.prender(m);
+            }
+        }
+        
+        if(e.piezasCreadas == totalPiezas){
+            if(e.maquinasPrendidas < solucion.getCantMaquinasEncendidas()){
+                solucion.setSolucion(e);
+            }
+        }
     }
 }
