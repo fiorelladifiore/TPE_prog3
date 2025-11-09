@@ -2,10 +2,12 @@ public class Maquina implements Comparable<Maquina> {
 
     private int capacidad;
     private String nombre;
+    private int cantEncendidos;
 
     public Maquina(int capacidad, String nombre) {
         this.capacidad = capacidad;
         this.nombre = nombre;
+        this.cantEncendidos = 0;
     }
 
     public int getCapacidad() {
@@ -16,10 +18,19 @@ public class Maquina implements Comparable<Maquina> {
         return nombre;
     }
 
-    @Override
-    public int compareTo(Maquina other){ // agregue el comparable para hacer el sort x capacidad
-        return this.capacidad - other.capacidad;
+    public int getCantEncendidos() {
+        return cantEncendidos;
     }
+
+    public void setCantEncendidos(int cantEncendidos) {
+        this.cantEncendidos = cantEncendidos;
+    }
+
+    @Override
+    public int compareTo(Maquina other){ // comparable para hacer el sort x capacidad
+        return other.capacidad - this.capacidad;
+    }
+
     public String toString() {
         return this.getNombre(); // Simplemente devuelve el nombre
     }

@@ -14,12 +14,14 @@ public class Estado {
     public void prender(Maquina m){
         secuenciaMaquinasPrendidas.add(m);
         piezasCreadas = piezasCreadas + m.getCapacidad();
-        maquinasPrendidas ++;
+        maquinasPrendidas++;
+        m.setCantEncendidos(m.getCantEncendidos()+1);
     }
 
     public void apagar(Maquina m){
         secuenciaMaquinasPrendidas.remove(m);
         piezasCreadas = piezasCreadas - m.getCapacidad();
-        maquinasPrendidas --;
+        maquinasPrendidas--;
+        m.setCantEncendidos(m.getCantEncendidos()-1);
     }
 }

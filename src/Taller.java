@@ -51,7 +51,7 @@ public class Taller {
 
     private void greedy(Estado e, List<Maquina> maquinasList, int totalPiezas){
         for(Maquina m : maquinasList){
-            while(e.piezasCreadas < totalPiezas){
+            while(e.piezasCreadas + m.getCapacidad() <= totalPiezas){
                 e.prender(m);
             }
         }

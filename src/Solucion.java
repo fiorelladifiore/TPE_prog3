@@ -36,10 +36,18 @@ public class Solucion {
         this.secuenciaMaquinasPrendidas = new LinkedList<Maquina>(secuenciaMaquinasPrendidas);
     }
 
-    public void setSolucion(Estado e){ // en lugar de hacer uno por uno el set en el greedy, paso el estado final y seteo todo junto
+    public void setSolucion(Estado e){
+        this.clearSolucion();
+        
         this.secuenciaMaquinasPrendidas = new ArrayList<>(e.secuenciaMaquinasPrendidas);
         this.cantPiezasProducidas = e.piezasCreadas;
         this.cantMaquinasEncendidas = e.maquinasPrendidas;
+    }
+
+    private void clearSolucion(){
+        this.secuenciaMaquinasPrendidas.clear();
+        this.cantPiezasProducidas = 0;
+        this.cantMaquinasEncendidas = 0;
     }
 
     @Override
