@@ -5,16 +5,39 @@ public class Taller {
     private Estado e;
     private Solucion solucion;
 
-    public Solucion construirPiezas(List<Maquina> maquinasList, int totalPiezasAConstruir){
+
+    /*
+    Árbol de exploración
+
+                Estado inicial
+                      [ ]
+                       |
+        -----------------------------------------------------------------
+        |                       |                      |                |
+       [M1]                    [M2]                   [M3]            [M4]  para este ejemplo usamos hasta M4 pero
+        |                       |                      |               |     sería la N cantidad de máquinas que haya
+      -----------------     ---------                      ...
+      |        |           |        |
+   [M1, M1] [M1, M2]... [M2, M1] [M2, M2]  ....
+       |             .                  .
+  [M1, M1, M1]...    .                  .
+                     .                  .
+                  [M1, M3, M4]       [M2, M2, M3, M4, M4]
+                   Estado final       Estado final (total de piezas 12)
+                   Estado solucion    Estado solucion (no la mejor)
+                   (posible mejor)
+*/
+
+    public Solucion construirPiezasBacktracking(List<Maquina> maquinasList, int totalPiezasAConstruir){
         e = new Estado(0,  new LinkedList<Maquina>());
-        solucion = new Solucion(Integer.MAX_VALUE, 0, new LinkedList<>());
+        solucion = new Solucion(Integer.MAX_VALUE, 0, new LinkedList<>(), 0);
         backtracking(e, maquinasList, totalPiezasAConstruir);
-        System.out.println(solucion.getCantMaquinasEncendidas());
         // si no hay solcion devolver nulo.
         return solucion;
     }
 
     private void backtracking(Estado e, List<Maquina> maquinasList, int totalPiezas){
+        e.cantidadDeEstados++;
         if(e.piezasCreadas == totalPiezas){
             if (e.maquinasPrendidas < solucion.getCantMaquinasEncendidas()){
                 solucion.setSolucion(e);
@@ -36,21 +59,29 @@ public class Taller {
     }
 
     /** GREEDY -------------------------------------------------------------------------------------------- */
-    public Solucion construirPiezasGreedy(List<Maquina> maquinasList, int totalPiezas){
+    public Solucion construirPiezasGreedy(List<Maquina> maquinasList, int totalPiezas) {
         Collections.sort(maquinasList);
-        
-        e = new Estado(0, new ArrayList<>());
-        solucion = new Solucion(0, 0, new ArrayList<>());
 
-        if(!maquinasList.isEmpty() && totalPiezas > 0){
+        e = new Estado(0, new ArrayList<>());
+        solucion = new Solucion(Integer.MAX_VALUE, 0, new ArrayList<>(), 0);
+
+        if (!maquinasList.isEmpty() && totalPiezas > 0) {
             greedy(e, maquinasList, totalPiezas);
         }
+        if (esSolu(e, totalPiezas)){
+            return solucion;
+        }else{
+            return null;
+        }
+    }
 
-        return solucion;
+    private boolean esSolu(Estado e, int totalPiezas) { //si pudo llegar a las piezas requeridas
+        return e.piezasCreadas == totalPiezas;
     }
 
     private void greedy(Estado e, List<Maquina> maquinasList, int totalPiezas){
         for(Maquina m : maquinasList){
+            e.cantidadDeEstados++;
             while(e.piezasCreadas + m.getCapacidad() <= totalPiezas){
                 e.prender(m);
             }

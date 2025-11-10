@@ -1,16 +1,35 @@
+import java.io.*;
+import java.util.*;
 
-void main() {
-    List<Maquina> maquinas = new ArrayList<>();
-    maquinas.add(new Maquina(7, "M1"));
-    maquinas.add(new Maquina(3, "M2"));
-    maquinas.add(new Maquina(4, "M3"));
-    maquinas.add(new Maquina(1, "M4"));
+    public static void main(String[] args) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("config.txt"));
+            int total = Integer.parseInt(br.readLine().trim());
+            List<Maquina> maquinas = new ArrayList<>();
 
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(",");
+                maquinas.add(new Maquina(Integer.parseInt(partes[1].trim()), partes[0].trim()));
+            }
+            br.close();
 
-    int objetivo = 12;
+            Taller taller = new Taller();
+            Solucion sol1 = taller.construirPiezasBacktracking(maquinas, total);
 
-    Taller taller = new Taller();
-    Solucion sol = taller.construirPiezas(maquinas, objetivo);
+            System.out.println("BACKTRACKING");
+            System.out.println(sol1.toString());
+            System.out.println(" cantidad de estados generados= " + sol1.getCantidadDeEstados());
+            System.out.println();
 
-    System.out.println(sol.toString());
-}
+            Solucion sol2 = taller.construirPiezasGreedy(maquinas, total);
+
+            System.out.println("GREEDY");
+            System.out.println(sol2.toString());
+            System.out.println(" cantidad de candidatos considerados= " + sol2.getCantidadDeEstados());
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
