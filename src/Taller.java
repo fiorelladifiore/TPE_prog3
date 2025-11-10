@@ -62,8 +62,8 @@ public class Taller {
     public Solucion construirPiezasGreedy(List<Maquina> maquinasList, int totalPiezas) {
         Collections.sort(maquinasList);
 
-        e = new Estado(0, new ArrayList<>());
-        solucion = new Solucion(Integer.MAX_VALUE, 0, new ArrayList<>(), 0);
+        Estado e = new Estado(0, new ArrayList<>());
+        Solucion solucion = new Solucion(Integer.MAX_VALUE, 0, new ArrayList<>(), 0);
 
         if (!maquinasList.isEmpty() && totalPiezas > 0) {
             greedy(e, maquinasList, totalPiezas);

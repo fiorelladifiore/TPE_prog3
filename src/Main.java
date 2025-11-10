@@ -23,7 +23,6 @@ import java.util.*;
             System.out.println();
 
             Solucion sol2 = taller.construirPiezasGreedy(maquinas, total);
-
             System.out.println("GREEDY");
             System.out.println(sol2.toString());
             System.out.println(" cantidad de candidatos considerados= " + sol2.getCantidadDeEstados());
