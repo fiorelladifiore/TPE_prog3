@@ -88,7 +88,7 @@ public class Taller {
         }
         
         if(e.piezasCreadas == totalPiezas){
-            if(e.maquinasPrendidas < solucion.getCantMaquinasEncendidas()){
+            if(e.maquinasPrendidas < solucion.getCantMaquinasEncendidas() || solucion.getCantMaquinasEncendidas() == 0){
                 solucion.setSolucion(e);
             }
         }
