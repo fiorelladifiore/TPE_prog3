@@ -53,17 +53,27 @@ public class Solucion {
     private String getNombresMaquinasPrendidas(){
         String nombres = "";
         for(Maquina m : secuenciaMaquinasPrendidas){
-            nombres += m.getNombre() + "(" + m.getCantEncendidos() + " encendido/s) ";
+            nombres += m.getNombre() + " ";
+        }
+        return nombres;
+    }
+
+    private String getCantidadDeEncendidosPorMaquina(){
+        String nombres = "";
+        for(Maquina m : secuenciaMaquinasPrendidas){
+            if (!nombres.contains(m.getNombre())){
+                nombres += "[" + m.getNombre() + ": " + m.getCantEncendidos() + "] ";
+            }
         }
         return nombres;
     }
 
     @Override
     public String toString() {
-        return "Solucion{" +
-                "cantMaquinasEncendidas= " + cantMaquinasEncendidas +
-                ", secuenciaMaquinasPrendidas= " + getNombresMaquinasPrendidas() +
-                ", cantPiezasProducidas= " + cantPiezasProducidas +
-                '}';
+        return "Solucion: " + "\n" +
+                "Cantidad de Maquinas Encendidas = " + cantMaquinasEncendidas + "\n" +
+                "Secuencia de Maquinas Encendidas = " + getNombresMaquinasPrendidas() + "\n" +
+                "Cantidad de Piezas Producidas = " + cantPiezasProducidas + "\n" +
+                "Cantidad de Encendidos por Maquina = " + getCantidadDeEncendidosPorMaquina();
     }
 }
