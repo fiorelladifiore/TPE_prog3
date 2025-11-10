@@ -50,12 +50,20 @@ public class Solucion {
         this.cantMaquinasEncendidas = 0;
     }
 
+    private String getNombresMaquinasPrendidas(){
+        String nombres = "";
+        for(Maquina m : secuenciaMaquinasPrendidas){
+            nombres += m.getNombre() + "(" + m.getCantEncendidos() + " encendido/s) ";
+        }
+        return nombres;
+    }
+
     @Override
     public String toString() {
         return "Solucion{" +
-                "cantMaquinasEncendidas=" + cantMaquinasEncendidas +
-                ", secuenciaMaquinasPrendidas=" + getNombresMaquinasPrendidas()+
-                ", cantPiezasProducidas=" + cantPiezasProducidas +
+                "cantMaquinasEncendidas= " + cantMaquinasEncendidas +
+                ", secuenciaMaquinasPrendidas= " + getNombresMaquinasPrendidas() +
+                ", cantPiezasProducidas= " + cantPiezasProducidas +
                 '}';
     }
 }
