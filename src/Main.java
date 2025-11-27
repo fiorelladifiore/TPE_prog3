@@ -15,20 +15,47 @@ import java.util.*;
             br.close();
 
             Taller taller = new Taller();
-            Solucion sol1 = taller.construirPiezasBacktracking(maquinas, total);
+
+            Solucion solBack1= taller.construirPiezasBacktracking(new ArrayList<>(maquinas), total);
+            Solucion solBack2 = taller.construirBacktrackingAdicional(new ArrayList<>(maquinas), total);
 
             System.out.println("BACKTRACKING");
-            System.out.println(sol1.toString());
-            System.out.println(" cantidad de estados generados= " + sol1.getCantidadDeEstados());
+            if (solBack1 == null) {
+                System.out.println("NO HAY SOLUCIÓN");
+            } else {
+                System.out.println(solBack1);
+                System.out.println(" cantidad de estados generados= " + solBack1.getCantidadDeEstados());
+            }
             System.out.println();
-
-            Solucion sol2 = taller.construirPiezasGreedy(maquinas, total);
+            System.out.println("BACKTRACKING ADICIONAL");
+            if (solBack2 == null) {
+                System.out.println("NO HAY SOLUCIÓN");
+            } else {
+                System.out.println(solBack2);
+                System.out.println(" cantidad de estados generados= " + solBack2.getCantidadDeEstados());
+            }
+            System.out.println();
+            Solucion solGreedy1 = taller.construirPiezasGreedy(new ArrayList<>(maquinas), total);
             System.out.println("GREEDY");
-            System.out.println(sol2.toString());
-            System.out.println(" cantidad de candidatos considerados= " + sol2.getCantidadDeEstados());
+            if (solGreedy1 == null) {
+                System.out.println("NO HAY SOLUCIÓN");
+            } else {
+                System.out.println(solGreedy1);
+                System.out.println(" cantidad de estados generados= " + solGreedy1.getCantidadDeEstados());
+            }
+            System.out.println();
+            Solucion solGreedy2 = taller.construirGreedyAdicional(new ArrayList<>(maquinas), total);
+            System.out.println("GREEDY ADICIONAL");
+            if (solGreedy2 == null) {
+                System.out.println(" NO HAY SOLUCIÓN");
+            } else {
+                System.out.println(solGreedy2);
+                System.out.println(" cantidad de estados generados= " + solGreedy2.getCantidadDeEstados());
+            }
 
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+
         }
     }
 
